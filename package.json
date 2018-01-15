@@ -1,0 +1,23 @@
+{
+  "name": "k8s-ops",
+  "version": "1.0.0",
+  "description": "Collective useful k8s ops features built on top of kubernetes-client",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "prepublish": "npm run build",
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/lodash": "^4.14.92",
+    "typescript": "^2.6.2"
+  },
+  "dependencies": {
+    "kubernetes-client": "^3.17.2",
+    "lodash": "^4.17.4"
+  }
+}
