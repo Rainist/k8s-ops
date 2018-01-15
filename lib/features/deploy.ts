@@ -12,31 +12,35 @@ interface DeployGetResult {
   }
 }
 
-const assertStatus = (result: DeployGetResult) => {
+export enum DeploymentStatusType { AsDesired, AllAvailable }
+
+const assertStatusByType = (result: DeployGetResult, statusType: DeploymentStatusType) => {
   const { replicas: desired, readyReplicas: ready, updatedReplicas: updated, availableReplicas: available } = result.status
-  return desired === ready && desired === ready && desired === updated && desired === available
+
+  switch (statusType) {
+    case DeploymentStatusType.AsDesired:
+      return desired === ready && desired === updated && desired === available
+    case DeploymentStatusType.AllAvailable:
+      return desired === ready && desired === available
+  }
 }
 
 const deployResource = (apis: APIS, deployment: string) => Resources(apis).v1beta1.deployment(deployment)
 
-function assertStatusAsDesired(apis: APIS) {
-  const assert = (deployment: string) =>
-    deployResource(apis, deployment).get()
-      .then((result: DeployGetResult) => {
-        const assertResult = assertStatus(result)
-        if (!assertResult) {
-          throw new Error(`${assertResult}`)
-        }
-        return assertResult
-      })
-
-  return (deployment: string) => assert(deployment)
+function assertStatus(deployment: KubernetesClientObject) {
+  return (statusType: DeploymentStatusType) => deployment.get()
+    .then((result: DeployGetResult) => {
+      const assertResult = assertStatusByType(result, statusType)
+      if (!assertResult) {
+        throw new Error(`${assertResult}`)
+      }
+      return assertResult
+    })
 }
 
-function deploy(apis: APIS) {
+export default (apis: APIS, deployment: string) => {
+  const deployRes = deployResource(apis, deployment)
   return {
-    assertStatusAsDesired: assertStatusAsDesired(apis)
+    assertStatus: assertStatus(deployRes)
   }
 }
-
-export default deploy

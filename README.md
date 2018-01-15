@@ -12,23 +12,22 @@ $ npm i k8s-ops --save
 ## Example
 
 ```js
-const { Apis, K8SAuthType, Features } = require('k8s-ops')
+const { Apis, K8SAuthType, Features, DeploymentStatusType } = require('k8s-ops')
 const { hpa: HPA, deploy: Deploy } = Features
 
 const namespace = 'kube-system'
 
 const apis = Apis(K8SAuthType.FromKubeconfig, namespace)
-const hpa = HPA(apis)
+const hpa = HPA(apis, 'your-hpa')
 
-const hpaName = 'your-hpa'
-hpa.scale(hpaName, { minReplicas: 5, maxReplicas: 9 }) // Scale HPA with given min/max replicas
-  .then(() => hpa.assertScale(hpaName, { minReplicas: 5, maxReplicas: 9 })) // check if scale is set correctly
+hpa.scale({ minReplicas: 5, maxReplicas: 9 }) // Scale HPA with given min/max replicas
+  .then(() => hpa.assertScale({ minReplicas: 5, maxReplicas: 9 })) // check if scale is set correctly
   .then(console.log)
   .catch(console.warn)
 
-const deploy = Deploy(apis)
+const deploy = Deploy(apis, 'heapster')
 
-deploy.assertStatusAsDesired('heapster') // check if all pods are all up-to-date and available
+deploy.assertStatus(DeploymentStatusType.AsDesired) // check if all pods are all up-to-date and available
   .then(console.log)
   .catch(console.warn)
 ```
