@@ -9,6 +9,7 @@
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": "Rainist/k8s-ops",
   "keywords": [],
   "author": "",
   "license": "MIT",
