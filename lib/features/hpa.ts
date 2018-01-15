@@ -9,7 +9,7 @@ interface HPAGetResult {
   spec: HPAScaleType
 }
 
-const hpaObject = (apis: APIS, hpa: string) => Resources(apis).v1.hpa(hpa)
+const hpaResource = (apis: APIS, hpa: string) => Resources(apis).v1.hpa(hpa)
 
 function scale(apis: APIS) {
   const buildBody = (scaleOption: HPAScaleType) => {
@@ -28,9 +28,9 @@ function scale(apis: APIS) {
 
   const patch = (hpa: string, scaleOption: HPAScaleType) => {
     const body = buildBody(scaleOption)
-    return hpaObject(apis, hpa)
+    return hpaResource(apis, hpa)
       .patch(body)
-      .then(() => hpaObject(apis, hpa).get())
+      .then(() => hpaResource(apis, hpa).get())
       .then((result: HPAGetResult) => {
         const { minReplicas, maxReplicas } = result.spec
         return { minReplicas, maxReplicas }
@@ -42,8 +42,6 @@ function scale(apis: APIS) {
 
 function assertScale(apis: APIS) {
   const assertSpec = (scaleOption: HPAScaleType, resultSpec: HPAScaleType) => {
-    console.log(scaleOption)
-    console.log(resultSpec)
     const { minReplicas, maxReplicas } = scaleOption
     let result = _.isNumber(minReplicas) || _.isNumber(maxReplicas)
 
@@ -58,10 +56,17 @@ function assertScale(apis: APIS) {
   }
 
   const assert = (hpa: string, scaleOption: HPAScaleType) =>
-    hpaObject(apis, hpa).get()
+    hpaResource(apis, hpa).get()
       .then((result: HPAGetResult) => {
         const { minReplicas, maxReplicas } = result.spec
-        return assertSpec(scaleOption, { minReplicas, maxReplicas })
+
+        const assertResult = assertSpec(scaleOption, { minReplicas, maxReplicas })
+
+        if (!assertResult) {
+          throw new Error(`${assertResult}`)
+        }
+
+        return assertResult
       })
 
   return (hpa: string, scaleOption: HPAScaleType) => assert(hpa, scaleOption)

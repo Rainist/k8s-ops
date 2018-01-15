@@ -17,12 +17,18 @@ const assertStatus = (result: DeployGetResult) => {
   return desired === ready && desired === ready && desired === updated && desired === available
 }
 
-const deployObject = (apis: APIS, deployment: string) => Resources(apis).v1beta1.deployment(deployment)
+const deployResource = (apis: APIS, deployment: string) => Resources(apis).v1beta1.deployment(deployment)
 
 function assertStatusAsDesired(apis: APIS) {
   const assert = (deployment: string) =>
-    deployObject(apis, deployment).get()
-      .then((result: DeployGetResult) => assertStatus(result))
+    deployResource(apis, deployment).get()
+      .then((result: DeployGetResult) => {
+        const assertResult = assertStatus(result)
+        if (!assertResult) {
+          throw new Error(`${assertResult}`)
+        }
+        return assertResult
+      })
 
   return (deployment: string) => assert(deployment)
 }
