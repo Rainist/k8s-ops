@@ -2,13 +2,14 @@ import { APIS } from './apis'
 
 function v1(apis: APIS) {
   return {
-    hpa: (hpa: string) => apis.autoscaling.v1.namespaces.horizontalpodautoscalers(hpa)
+    hpa: apis.autoscaling.v1.namespaces.horizontalpodautoscalers,
+    pod: apis.core.v1.namespace.pod
   }
 }
 
 function v1beta1(apis: APIS) {
   return {
-    deployment: (deployment: string) => apis.extentions.v1beta1.namespaces.deployment(deployment)
+    deployment: apis.extentions.v1beta1.namespaces.deployment
   }
 }
 

@@ -2,8 +2,8 @@
   "name": "k8s-ops",
   "version": "1.0.3",
   "description": "Collective useful k8s ops features built on top of kubernetes-client",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/lib/index.js",
+  "types": "dist/lib/index.d.ts",
   "scripts": {
     "prepublish": "npm run build",
     "build": "tsc",
@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "kubernetes-client": "^3.17.2",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "moment": "^2.20.1"
   }
 }

@@ -2,6 +2,7 @@ declare module 'kubernetes-client'
 
 interface KubernetesClientObject {
   patch: Function,
-  get: Function
+  get: Function,
+  delete: Function,
 }
 

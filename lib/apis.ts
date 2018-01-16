@@ -39,6 +39,9 @@ function authConfig(auth: K8SAuthOption): AuthConfig {
 }
 
 export interface APIS {
+  core: {
+    v1: any
+  },
   extentions: {
     v1beta1: any
   },
@@ -52,6 +55,9 @@ export function Apis(auth: K8SAuthOption, namespace: string, promises: boolean =
   const config = { ...authconfig, namespace, request: { timeout }, promises}
 
   return {
+    core: {
+      v1: new Api.Core({ ...config, version: 'v1' })
+    },
     extentions: {
       v1beta1: new Api.Extensions({ ...config, version: 'v1beta1' })
     },
