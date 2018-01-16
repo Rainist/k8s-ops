@@ -1,6 +1,6 @@
 {
   "name": "k8s-ops",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Collective useful k8s ops features built on top of kubernetes-client",
   "main": "dist/lib/index.js",
   "types": "dist/lib/index.d.ts",
