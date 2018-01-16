@@ -3,13 +3,13 @@ import * as _ from 'lodash'
 import * as moment from 'moment'
 
 export type PodTransformer = (pod: PodObject) => object
-export interface NameAndReadyAge { name: string, readyAge: Date}
+export interface NameAndReadyAt { name: string, readyAt?: Date}
 
 const podTransformer = {
-  readyAge: (pod: PodObject) => {
+  readyAt: (pod: PodObject): NameAndReadyAt => {
     const name = pod.metadata.name
 
-    const readyAge = _.chain(pod.status.conditions)
+    let readyAt = _.chain(pod.status.conditions)
       .filter((condition) => {
         const { type, status }  = condition
         return type === 'Ready' && status === 'True'
@@ -23,8 +23,10 @@ const podTransformer = {
       })
       .first().value()
 
+    if (!readyAt) readyAt = undefined
+
     return {
-      name, readyAge
+      name, readyAt
     }
   }
 }

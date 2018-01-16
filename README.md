@@ -31,7 +31,7 @@ deploy.assertStatus(DeploymentStatusType.AsDesired) // check if all pods are all
   .then(console.log)
   .catch(console.warn)
 
-deploy.pods(Transformers.pod.readyAge) //Using optional transformer to get more consize data and you can implement your own
+deploy.pods(Transformers.pod.readyAt) //Using optional transformer to get more consize data and you can implement your own
   .then(console.log)
   .catch(console.warn)
 
