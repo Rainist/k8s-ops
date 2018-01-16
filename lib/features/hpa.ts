@@ -65,6 +65,7 @@ const scaling = {
 export default (apis: APIS, hpa: string) => {
   const hpaRes = hpaResource(apis, hpa)
   return {
+    res: hpaRes,
     scale: (scaleOption: HPAScaleType) => scaling.scale(hpaRes, scaleOption),
     assertScale: (scaleOption: HPAScaleType) => scaling.assert(hpaRes, scaleOption)
   }

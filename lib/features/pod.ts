@@ -10,6 +10,7 @@ const terminate = (pod: KubernetesClientObject) => () => pod.delete()
 export default (apis: APIS, pod: string) => {
   const podRes = podResource(apis, pod)
   return {
+    res: podRes,
     terminate: terminate(podRes)
   }
 }

@@ -62,6 +62,7 @@ export default (apis: APIS, deployment: string) => {
   const deployRes = deployResource(apis, deployment)
 
   return {
+    res: deployRes,
     assertStatus: assertStatus(deployRes),
     pods: pods(apis, deployRes),
   }
