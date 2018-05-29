@@ -1,5 +1,3 @@
-import * as _ from 'lodash'
-
 import Resources from '../resources'
 import { APIS } from '../apis'
 import { Apis } from '../index';

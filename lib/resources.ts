@@ -3,7 +3,8 @@ import { APIS } from './apis'
 function v1(apis: APIS) {
   return {
     hpa: apis.autoscaling.v1.namespaces.horizontalpodautoscalers,
-    pod: apis.core.v1.namespace.pod
+    pod: apis.core.v1.namespace.pod,
+    service: apis.core.v1.namespace.service
   }
 }
 
