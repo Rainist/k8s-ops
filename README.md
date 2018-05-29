@@ -13,7 +13,12 @@ $ npm i k8s-ops --save
 
 ```js
 const { Apis, K8SAuthType, Features, DeploymentStatusType, Transformers } = require('k8s-ops')
-const { hpa: HPA, deploy: Deploy, pod: Pod } = Features
+const { 
+  hpa: HPA,
+  pod: Pod,
+  deploy: Deploy,
+  service: Service
+} = Features
 
 const namespace = 'kube-system'
 
@@ -37,4 +42,8 @@ const pod = Pod(apis, 'your-pod-755b9c7968-r889w')
 pod.terminate().then(console.log)
 
 pod.res.get().then(console.log) // use kubernetes-client's objects' feature directly by accessing .res
+
+const service = Service(apis, 'your-service')
+
+service.res.get().then(console.log) // use kubernetes-client's objects' feature directly by accessing .res
 ```
