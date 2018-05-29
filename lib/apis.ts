@@ -50,9 +50,9 @@ export interface APIS {
   }
 }
 
-export function Apis(auth: K8SAuthOption, namespace: string, promises: boolean = true, timeout: number = 5000 ): APIS {
+export function Apis(auth: K8SAuthOption, namespace: string, promises: boolean = true, timeout: number = 5000): APIS {
   const authconfig = authConfig(auth)
-  const config = { ...authconfig, namespace, request: { timeout }, promises}
+  const config = { ...authconfig, namespace, request: { timeout }, promises }
 
   return {
     core: {
