@@ -14,12 +14,12 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "@types/lodash": "4.14.92",
+    "@types/lodash": "4.14.120",
     "typescript": "2.6.2"
   },
   "dependencies": {
     "kubernetes-client": "3.17.2",
-    "lodash": "4.17.4",
+    "lodash": "4.17.11",
     "moment": "2.20.1"
   }
 }
