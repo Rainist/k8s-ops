@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "kubernetes-client": "3.17.2",
-    "lodash": "4.17.11",
+    "lodash": "4.17.15",
     "moment": "2.20.1"
   }
 }
